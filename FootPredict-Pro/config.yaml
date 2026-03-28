@@ -1,0 +1,209 @@
+# ============================================================
+# FootPredict-Pro Configuration
+# ============================================================
+# Copy this file and rename to config.local.yaml for local
+# overrides (gitignored).
+# ============================================================
+
+# ----------------------------------------------------------
+# API Configuration
+# ----------------------------------------------------------
+api:
+  api_football:
+    base_url: "https://v3.football.api-sports.io"
+    key: "YOUR_API_FOOTBALL_KEY"   # https://www.api-football.com
+    timeout: 30
+    retry_attempts: 3
+    retry_delay: 5                 # seconds between retries
+    rate_limit_per_minute: 100     # Free tier = 100/min
+  
+  understat:
+    base_url: "https://understat.com"
+    enabled: true                  # Scrape xG data from Understat
+
+  football_data_co:
+    base_url: "https://www.football-data.co.uk/mmz4281"
+    enabled: true                  # CSV fallback when API unavailable
+
+# ----------------------------------------------------------
+# Leagues to track
+# ----------------------------------------------------------
+leagues:
+  - id: 39
+    name: "Premier League"
+    country: "England"
+    football_data_code: "E0"
+    understat_name: "EPL"
+  - id: 140
+    name: "La Liga"
+    country: "Spain"
+    football_data_code: "SP1"
+    understat_name: "La_liga"
+  - id: 78
+    name: "Bundesliga"
+    country: "Germany"
+    football_data_code: "D1"
+    understat_name: "Bundesliga"
+  - id: 135
+    name: "Serie A"
+    country: "Italy"
+    football_data_code: "I1"
+    understat_name: "Serie_A"
+  - id: 61
+    name: "Ligue 1"
+    country: "France"
+    football_data_code: "F1"
+    understat_name: "Ligue_1"
+  - id: 2
+    name: "Champions League"
+    country: "Europe"
+    football_data_code: null
+    understat_name: null
+
+# ----------------------------------------------------------
+# Seasons to fetch/train on
+# ----------------------------------------------------------
+seasons:
+  fetch: [2021, 2022, 2023, 2024]
+  train: [2021, 2022, 2023]
+  test:  [2024]
+
+# ----------------------------------------------------------
+# Data Paths
+# ----------------------------------------------------------
+paths:
+  data_raw: "data/raw"
+  data_processed: "data/processed"
+  models: "models"
+  logs: "logs"
+
+# ----------------------------------------------------------
+# Feature Engineering Settings
+# ----------------------------------------------------------
+features:
+  form_window: 10           # Last N matches for rolling form
+  form_short_window: 5      # Short-term form window
+  decay_factor: 0.85        # Exponential decay for time-weighting
+  h2h_matches: 5            # Head-to-head matches to consider
+  min_matches_for_rating: 5 # Minimum matches before using team rating
+  home_advantage_factor: 0.1 # Added to home team attack rating
+  
+  player:
+    form_window: 5           # Player form last N matches
+    min_minutes: 45          # Minimum minutes to count a match
+    position_weights:
+      striker: 1.0
+      forward: 0.85
+      midfielder: 0.55
+      defender: 0.20
+      goalkeeper: 0.02
+
+# ----------------------------------------------------------
+# Model Hyperparameters
+# ----------------------------------------------------------
+models:
+  xgboost:
+    n_estimators: 500
+    learning_rate: 0.05
+    max_depth: 5
+    subsample: 0.8
+    colsample_bytree: 0.8
+    min_child_weight: 3
+    reg_alpha: 0.1
+    reg_lambda: 1.0
+    random_state: 42
+    n_jobs: -1
+
+  lightgbm:
+    n_estimators: 500
+    learning_rate: 0.05
+    max_depth: 6
+    num_leaves: 31
+    subsample: 0.8
+    colsample_bytree: 0.8
+    min_child_samples: 20
+    reg_alpha: 0.1
+    reg_lambda: 1.0
+    random_state: 42
+    n_jobs: -1
+    verbose: -1
+
+  catboost:
+    iterations: 500
+    learning_rate: 0.05
+    depth: 6
+    l2_leaf_reg: 3
+    random_seed: 42
+    verbose: 0
+
+  logistic_regression:
+    C: 1.0
+    max_iter: 1000
+    random_state: 42
+
+  dixon_coles:
+    max_goals: 10            # Maximum goals per team in distribution
+    xi: 0.0018               # Time decay parameter (per day)
+    min_matches: 5           # Min matches for attack/defense rating
+
+  player_xgb:
+    n_estimators: 300
+    learning_rate: 0.05
+    max_depth: 4
+    subsample: 0.8
+    colsample_bytree: 0.8
+    random_state: 42
+    n_jobs: -1
+
+# ----------------------------------------------------------
+# Ensemble Weights (will be tuned via backtesting)
+# ----------------------------------------------------------
+ensemble:
+  outcome:
+    xgboost: 0.30
+    lightgbm: 0.30
+    catboost: 0.25
+    logistic: 0.15
+  
+  scoreline:
+    dixon_coles: 0.60
+    xgboost_goals: 0.40
+
+  calibration: "isotonic"   # "platt" or "isotonic"
+
+# ----------------------------------------------------------
+# Training Settings
+# ----------------------------------------------------------
+training:
+  test_size: 0.15
+  min_samples: 200
+  time_weight: true          # Use time-weighted training samples
+  cv_folds: 5
+  optuna_trials: 50          # Hyperparameter optimization trials
+  optuna_timeout: 600        # Max seconds for Optuna optimization
+  early_stopping_rounds: 50
+
+# ----------------------------------------------------------
+# Backtesting Settings
+# ----------------------------------------------------------
+backtest:
+  min_train_matches: 100     # Minimum matches before first prediction
+  rolling_window: 380        # Matches per season (approx)
+  step_size: 10              # Re-train every N matches
+
+# ----------------------------------------------------------
+# Inference Settings
+# ----------------------------------------------------------
+inference:
+  max_response_time: 2.0     # Maximum seconds for prediction
+  confidence_threshold: 0.45 # Minimum confidence to flag prediction
+  default_lineup_size: 11
+
+# ----------------------------------------------------------
+# Logging
+# ----------------------------------------------------------
+logging:
+  level: "INFO"
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {name} | {message}"
+  rotation: "100 MB"
+  retention: "30 days"
