@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.coverage
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb~
+
+# Data (raw data can be large)
+data/raw/*.csv
+data/raw/*.json
+data/raw/*.parquet
+data/processed/*.parquet
+data/processed/*.csv
+
+# Trained models (can be large — version with DVC instead)
+models/*.joblib
+models/*.pkl
+models/*.bin
+
+# Logs
+logs/
+*.log
+
+# Local config overrides
+config.local.yaml
+.env
+.env.local
+
+# OS
+Thumbs.db
+.DS_Store
