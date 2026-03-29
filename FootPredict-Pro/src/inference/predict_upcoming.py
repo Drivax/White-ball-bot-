@@ -149,8 +149,8 @@ TEAM_PRIORS: Dict[str, Tuple[float, float]] = {
     "Real Madrid":        ( 0.50, -0.32),
     "Barcelona":          ( 0.45, -0.25),
     "Atletico Madrid":    ( 0.25, -0.38),
-    "Athletic Bilbao":    ( 0.20, -0.15),
-    "Athletic Club":      ( 0.20, -0.15),
+    "Athletic Bilbao":    ( 0.20, -0.15),  # common English name
+    "Athletic Club":      ( 0.20, -0.15),  # official club name (same team)
     "Villarreal":         ( 0.18, -0.05),
     "Real Sociedad":      ( 0.15, -0.10),
     "Real Betis":         ( 0.10,  0.00),
@@ -171,12 +171,12 @@ TEAM_PRIORS: Dict[str, Tuple[float, float]] = {
     "RB Leipzig":                ( 0.30, -0.18),
     "Eintracht Frankfurt":       ( 0.20,  0.05),
     "VfB Stuttgart":             ( 0.22, -0.08),
-    "Wolfsburg":                 ( 0.00,  0.05),
-    "VfL Wolfsburg":             ( 0.00,  0.05),
-    "Augsburg":                  (-0.15,  0.05),
-    "FC Augsburg":               (-0.15,  0.05),
-    "TSG Hoffenheim":            ( 0.05,  0.10),
-    "Hoffenheim":                ( 0.05,  0.10),
+    "Wolfsburg":                 ( 0.00,  0.05),  # short form (legacy)
+    "VfL Wolfsburg":             ( 0.00,  0.05),  # official name used in fixtures
+    "Augsburg":                  (-0.15,  0.05),  # short form (legacy)
+    "FC Augsburg":               (-0.15,  0.05),  # official name used in fixtures
+    "TSG Hoffenheim":            ( 0.05,  0.10),  # official name used in fixtures
+    "Hoffenheim":                ( 0.05,  0.10),  # short form (legacy)
     "SC Freiburg":               ( 0.12, -0.08),
     "Hamburger SV":              ( 0.08,  0.02),
     "Werder Bremen":             ( 0.10,  0.05),
