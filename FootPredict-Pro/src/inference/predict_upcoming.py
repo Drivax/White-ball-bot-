@@ -56,70 +56,59 @@ from src.models.ensemble import MasterEnsemble, MatchPrediction
 # ---------------------------------------------------------------------------
 
 #: Each entry: date (ISO), competition, home, away
-#: ``neutral=True`` means home-advantage is removed (UCL hosted at neutral).
+#: ``neutral=True`` means home-advantage is removed (e.g. match at a neutral venue).
 STATIC_FIXTURES: List[Dict[str, Any]] = [
-    # ── 29 March 2026 ── FIFA World Cup 2026 Qualifiers (UEFA) ──────────────
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "England",     "away": "Albania",        "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "France",      "away": "Croatia",        "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Germany",     "away": "Hungary",        "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Spain",       "away": "Denmark",        "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Italy",       "away": "Bulgaria",       "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Portugal",    "away": "Czech Republic", "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Belgium",     "away": "Austria",        "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Netherlands", "away": "Turkey",         "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Serbia",      "away": "Switzerland",    "neutral": False},
-    # CONMEBOL
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – CONMEBOL", "home": "Brazil",   "away": "Argentina", "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – CONMEBOL", "home": "Colombia", "away": "Uruguay",   "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – CONMEBOL", "home": "Chile",    "away": "Ecuador",   "neutral": False},
-
-    # ── 1 April 2026 ── UEFA Champions League – Quarter-finals Leg 1 ────────
-    {"date": "2026-04-01", "competition": "UEFA Champions League QF Leg 1", "home": "Real Madrid",      "away": "Arsenal",         "neutral": False},
-    {"date": "2026-04-01", "competition": "UEFA Champions League QF Leg 1", "home": "Bayern Munich",    "away": "PSG",             "neutral": False},
-
-    # ── 2 April 2026 ── UCL QF Leg 1 (second slate) ─────────────────────────
-    {"date": "2026-04-02", "competition": "UEFA Champions League QF Leg 1", "home": "Manchester City",  "away": "Inter Milan",     "neutral": False},
-    {"date": "2026-04-02", "competition": "UEFA Champions League QF Leg 1", "home": "Barcelona",        "away": "Atletico Madrid", "neutral": False},
+    # ── 29 March 2026 ── International Friendly ──────────────────────────────
+    # France vs Colombia: "Road to 26" friendly at Northwest Stadium, Landover MD (USA)
+    # neutral=True because it is played at a neutral US venue (neither team's home)
+    {"date": "2026-03-29", "competition": "International Friendly", "home": "France",   "away": "Colombia", "neutral": True},
 
     # ── 3 April 2026 ── Ligue 1 ─────────────────────────────────────────────
-    {"date": "2026-04-03", "competition": "Ligue 1", "home": "Lens",      "away": "Rennes",      "neutral": False},
-    {"date": "2026-04-03", "competition": "Ligue 1", "home": "Montpellier","away": "Brest",       "neutral": False},
+    {"date": "2026-04-03", "competition": "Ligue 1", "home": "Lens",       "away": "Rennes", "neutral": False},
+    {"date": "2026-04-03", "competition": "Ligue 1", "home": "Montpellier","away": "Brest",  "neutral": False},
 
-    # ── 4 April 2026 ── Premier League GW32 ─────────────────────────────────
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Arsenal",          "away": "Crystal Palace",     "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Chelsea",          "away": "Bournemouth",        "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Liverpool",        "away": "Everton",            "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Manchester United","away": "Fulham",             "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Aston Villa",      "away": "Newcastle United",   "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Tottenham",        "away": "Southampton",        "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Brighton",         "away": "West Ham",           "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Wolves",           "away": "Leicester City",     "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Brentford",        "away": "Ipswich Town",       "neutral": False},
-    # La Liga
-    {"date": "2026-04-04", "competition": "La Liga",         "home": "Real Madrid",      "away": "Athletic Bilbao",    "neutral": False},
-    {"date": "2026-04-04", "competition": "La Liga",         "home": "Barcelona",        "away": "Espanyol",           "neutral": False},
-    {"date": "2026-04-04", "competition": "La Liga",         "home": "Villarreal",       "away": "Sevilla",            "neutral": False},
-    # Bundesliga
-    {"date": "2026-04-04", "competition": "Bundesliga",      "home": "Bayern Munich",    "away": "Wolfsburg",          "neutral": False},
-    {"date": "2026-04-04", "competition": "Bundesliga",      "home": "Bayer Leverkusen", "away": "Hoffenheim",         "neutral": False},
-    {"date": "2026-04-04", "competition": "Bundesliga",      "home": "Borussia Dortmund","away": "Augsburg",           "neutral": False},
-    # Serie A
-    {"date": "2026-04-04", "competition": "Serie A",         "home": "Juventus",         "away": "Lazio",              "neutral": False},
-    {"date": "2026-04-04", "competition": "Serie A",         "home": "Atalanta",         "away": "Fiorentina",         "neutral": False},
+    # ── 4 April 2026 ─────────────────────────────────────────────────────────
+    # La Liga GW30
+    {"date": "2026-04-04", "competition": "La Liga",    "home": "Mallorca",       "away": "Real Madrid",    "neutral": False},
+    {"date": "2026-04-04", "competition": "La Liga",    "home": "Real Betis",     "away": "Espanyol",       "neutral": False},
+    {"date": "2026-04-04", "competition": "La Liga",    "home": "Atletico Madrid","away": "Barcelona",      "neutral": False},
+    {"date": "2026-04-04", "competition": "La Liga",    "home": "Real Sociedad",  "away": "Levante",        "neutral": False},
+    # Bundesliga GW28
+    {"date": "2026-04-04", "competition": "Bundesliga", "home": "SC Freiburg",          "away": "Bayern Munich",    "neutral": False},
+    {"date": "2026-04-04", "competition": "Bundesliga", "home": "Bayer Leverkusen",     "away": "VfL Wolfsburg",    "neutral": False},
+    {"date": "2026-04-04", "competition": "Bundesliga", "home": "Borussia Mönchengladbach", "away": "1. FC Heidenheim", "neutral": False},
+    {"date": "2026-04-04", "competition": "Bundesliga", "home": "Hamburger SV",         "away": "FC Augsburg",      "neutral": False},
+    {"date": "2026-04-04", "competition": "Bundesliga", "home": "TSG Hoffenheim",       "away": "Mainz 05",         "neutral": False},
+    {"date": "2026-04-04", "competition": "Bundesliga", "home": "Werder Bremen",        "away": "RB Leipzig",       "neutral": False},
+    {"date": "2026-04-04", "competition": "Bundesliga", "home": "VfB Stuttgart",        "away": "Borussia Dortmund","neutral": False},
+    # Serie A GW31
+    {"date": "2026-04-04", "competition": "Serie A",    "home": "Sassuolo",       "away": "Cagliari",       "neutral": False},
+    {"date": "2026-04-04", "competition": "Serie A",    "home": "Hellas Verona",  "away": "Fiorentina",     "neutral": False},
+    {"date": "2026-04-04", "competition": "Serie A",    "home": "Lazio",          "away": "Parma",          "neutral": False},
 
-    # ── 5 April 2026 ── Sunday slate ────────────────────────────────────────
-    # Premier League
-    {"date": "2026-04-05", "competition": "Premier League",  "home": "Manchester City",  "away": "Nottingham Forest",  "neutral": False},
-    # Serie A
-    {"date": "2026-04-05", "competition": "Serie A",         "home": "Inter Milan",      "away": "AC Milan",           "neutral": False},
-    {"date": "2026-04-05", "competition": "Serie A",         "home": "Napoli",           "away": "Roma",               "neutral": False},
-    # La Liga
-    {"date": "2026-04-05", "competition": "La Liga",         "home": "Atletico Madrid",  "away": "Valencia",           "neutral": False},
-    {"date": "2026-04-05", "competition": "La Liga",         "home": "Real Betis",       "away": "Getafe",             "neutral": False},
-    # Ligue 1
-    {"date": "2026-04-05", "competition": "Ligue 1",         "home": "PSG",              "away": "Marseille",          "neutral": False},
-    {"date": "2026-04-05", "competition": "Ligue 1",         "home": "Monaco",           "away": "Lyon",               "neutral": False},
-    {"date": "2026-04-05", "competition": "Ligue 1",         "home": "Lille",            "away": "Lens",               "neutral": False},
+    # ── 5 April 2026 ─────────────────────────────────────────────────────────
+    # La Liga GW30 (Sunday)
+    {"date": "2026-04-05", "competition": "La Liga",    "home": "Getafe",         "away": "Athletic Club",  "neutral": False},
+    {"date": "2026-04-05", "competition": "La Liga",    "home": "Valencia",       "away": "Celta de Vigo",  "neutral": False},
+    {"date": "2026-04-05", "competition": "La Liga",    "home": "Alaves",         "away": "Osasuna",        "neutral": False},
+    # Bundesliga GW28 (Sunday)
+    {"date": "2026-04-05", "competition": "Bundesliga", "home": "Union Berlin",        "away": "FC St. Pauli",     "neutral": False},
+    {"date": "2026-04-05", "competition": "Bundesliga", "home": "Eintracht Frankfurt", "away": "1. FC Köln",       "neutral": False},
+    # Serie A GW31 (Sunday)
+    {"date": "2026-04-05", "competition": "Serie A",    "home": "Inter Milan",    "away": "AC Milan",       "neutral": False},
+    {"date": "2026-04-05", "competition": "Serie A",    "home": "Napoli",         "away": "Roma",           "neutral": False},
+    # Ligue 1 GW27 (Sunday)
+    {"date": "2026-04-05", "competition": "Ligue 1",    "home": "PSG",            "away": "Marseille",      "neutral": False},
+    {"date": "2026-04-05", "competition": "Ligue 1",    "home": "Monaco",         "away": "Lyon",           "neutral": False},
+    {"date": "2026-04-05", "competition": "Ligue 1",    "home": "Lille",          "away": "Lens",           "neutral": False},
+
+    # ── 7 April 2026 ── UEFA Champions League QF Leg 1 (first slate) ────────
+    {"date": "2026-04-07", "competition": "UEFA Champions League QF Leg 1", "home": "Sporting CP", "away": "Arsenal",        "neutral": False},
+    {"date": "2026-04-07", "competition": "UEFA Champions League QF Leg 1", "home": "Real Madrid",  "away": "Bayern Munich",  "neutral": False},
+
+    # ── 8 April 2026 ── UCL QF Leg 1 (second slate) ─────────────────────────
+    {"date": "2026-04-08", "competition": "UEFA Champions League QF Leg 1", "home": "Barcelona",    "away": "Atletico Madrid","neutral": False},
+    {"date": "2026-04-08", "competition": "UEFA Champions League QF Leg 1", "home": "PSG",          "away": "Liverpool",      "neutral": False},
 ]
 
 
@@ -161,6 +150,7 @@ TEAM_PRIORS: Dict[str, Tuple[float, float]] = {
     "Barcelona":          ( 0.45, -0.25),
     "Atletico Madrid":    ( 0.25, -0.38),
     "Athletic Bilbao":    ( 0.20, -0.15),
+    "Athletic Club":      ( 0.20, -0.15),
     "Villarreal":         ( 0.18, -0.05),
     "Real Sociedad":      ( 0.15, -0.10),
     "Real Betis":         ( 0.10,  0.00),
@@ -168,17 +158,34 @@ TEAM_PRIORS: Dict[str, Tuple[float, float]] = {
     "Valencia":           ( 0.00,  0.08),
     "Getafe":             (-0.10,  0.00),
     "Espanyol":           (-0.05,  0.10),
+    "Mallorca":           (-0.05,  0.02),
+    "Levante":            (-0.12,  0.12),
+    "Celta de Vigo":      ( 0.02,  0.05),
+    "Alaves":             (-0.12,  0.08),
+    "Osasuna":            (-0.08,  0.02),
 
     # ── Bundesliga ───────────────────────────────────────────────────────────
-    "Bayern Munich":      ( 0.55, -0.28),
-    "Bayer Leverkusen":   ( 0.42, -0.22),
-    "Borussia Dortmund":  ( 0.35, -0.10),
-    "RB Leipzig":         ( 0.30, -0.18),
-    "Eintracht Frankfurt":( 0.20,  0.05),
-    "VfB Stuttgart":      ( 0.22, -0.08),
-    "Wolfsburg":          ( 0.00,  0.05),
-    "Augsburg":           (-0.15,  0.05),
-    "Hoffenheim":         ( 0.05,  0.10),
+    "Bayern Munich":             ( 0.55, -0.28),
+    "Bayer Leverkusen":          ( 0.42, -0.22),
+    "Borussia Dortmund":         ( 0.35, -0.10),
+    "RB Leipzig":                ( 0.30, -0.18),
+    "Eintracht Frankfurt":       ( 0.20,  0.05),
+    "VfB Stuttgart":             ( 0.22, -0.08),
+    "Wolfsburg":                 ( 0.00,  0.05),
+    "VfL Wolfsburg":             ( 0.00,  0.05),
+    "Augsburg":                  (-0.15,  0.05),
+    "FC Augsburg":               (-0.15,  0.05),
+    "TSG Hoffenheim":            ( 0.05,  0.10),
+    "Hoffenheim":                ( 0.05,  0.10),
+    "SC Freiburg":               ( 0.12, -0.08),
+    "Hamburger SV":              ( 0.08,  0.02),
+    "Werder Bremen":             ( 0.10,  0.05),
+    "Borussia Mönchengladbach":  ( 0.15,  0.00),
+    "1. FC Heidenheim":          (-0.05,  0.05),
+    "Mainz 05":                  ( 0.02,  0.02),
+    "Union Berlin":              ( 0.05, -0.05),
+    "FC St. Pauli":              (-0.08,  0.08),
+    "1. FC Köln":                ( 0.00,  0.08),
 
     # ── Serie A ──────────────────────────────────────────────────────────────
     "Inter Milan":        ( 0.45, -0.35),
@@ -189,6 +196,10 @@ TEAM_PRIORS: Dict[str, Tuple[float, float]] = {
     "Lazio":              ( 0.20,  0.00),
     "Atalanta":           ( 0.38, -0.15),
     "Fiorentina":         ( 0.18, -0.05),
+    "Sassuolo":           ( 0.05,  0.08),
+    "Cagliari":           (-0.10,  0.10),
+    "Hellas Verona":      (-0.08,  0.10),
+    "Parma":              (-0.05,  0.08),
 
     # ── Ligue 1 ──────────────────────────────────────────────────────────────
     "PSG":                ( 0.60, -0.25),
@@ -201,7 +212,10 @@ TEAM_PRIORS: Dict[str, Tuple[float, float]] = {
     "Brest":              ( 0.08,  0.10),
     "Montpellier":        (-0.15,  0.15),
 
-    # ── International (WC qualifiers) ────────────────────────────────────────
+    # ── Other European clubs (UCL participants) ───────────────────────────────
+    "Sporting CP":        ( 0.30, -0.20),
+
+    # ── International (WC qualifiers / friendlies) ───────────────────────────
     "England":            ( 0.40, -0.28),
     "France":             ( 0.45, -0.35),
     "Germany":            ( 0.40, -0.30),

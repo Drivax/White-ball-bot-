@@ -1,7 +1,7 @@
 ========================================================================
   FootPredict-Pro — Football Match Predictions
-  Period: Sunday 29 March 2026 — Sunday 5 April 2026
-  Generated: 2026-03-29 09:42 UTC
+  Period: Sunday 29 March 2026 — Wednesday 8 April 2026
+  Generated: 2026-03-29 10:11 UTC
   Model: Dixon-Coles Bivariate Poisson (seeded with 2024-25 priors)
 ========================================================================
 
@@ -13,53 +13,9 @@
   SUNDAY, 29 MARCH 2026
 ────────────────────────────────────────────────────────────────────────
 
-  ◆ WC 2026 Qualifiers – CONMEBOL
-    Brazil vs Argentina                     H:51%  D:19%  A:30%  xG:2.80-2.18  Top:2-2 (6%)  → Brazil  [medium]
-                                            Scorelines: 2-2(6%)  3-2(6%)  2-1(6%)  3-1(5%)  2-3(5%)
-    Colombia vs Uruguay                     H:52%  D:22%  A:26%  xG:2.18-1.54  Top:1-1 (9%)  → Colombia  [medium]
-                                            Scorelines: 1-1(9%)  2-1(9%)  2-2(7%)  3-1(6%)  1-2(6%)
-    Chile vs Ecuador                        H:47%  D:26%  A:26%  xG:1.70-1.22  Top:1-1 (12%)  → Chile  [medium]
-                                            Scorelines: 1-1(12%)  2-1(10%)  1-0(8%)  2-0(8%)  1-2(7%)
-
-  ◆ WC 2026 Qualifiers – UEFA
-    England vs Albania                      H:53%  D:23%  A:24%  xG:2.12-1.39  Top:1-1 (10%)  → England  [medium]
-                                            Scorelines: 1-1(10%)  2-1(9%)  2-0(7%)  3-1(7%)  2-2(6%)
-    France vs Croatia                       H:54%  D:20%  A:26%  xG:2.53-1.77  Top:2-1 (8%)  → France  [medium]
-                                            Scorelines: 2-1(8%)  2-2(7%)  1-1(7%)  3-1(6%)  3-2(6%)
-    Germany vs Hungary                      H:52%  D:22%  A:26%  xG:2.18-1.52  Top:1-1 (9%)  → Germany  [medium]
-                                            Scorelines: 1-1(9%)  2-1(9%)  2-2(7%)  3-1(6%)  1-2(6%)
-    Spain vs Denmark                        H:54%  D:20%  A:27%  xG:2.56-1.82  Top:2-1 (7%)  → Spain  [medium]
-                                            Scorelines: 2-1(7%)  2-2(7%)  1-1(6%)  3-1(6%)  3-2(6%)
-    Italy vs Bulgaria                       H:47%  D:25%  A:28%  xG:1.77-1.32  Top:1-1 (12%)  → Italy  [medium]
-                                            Scorelines: 1-1(12%)  2-1(9%)  2-0(7%)  1-2(7%)  1-0(7%)
-    Portugal vs Czech Republic              H:55%  D:21%  A:23%  xG:2.32-1.49  Top:2-1 (9%)  → Portugal  [high]
-                                            Scorelines: 2-1(9%)  1-1(8%)  3-1(7%)  2-2(7%)  2-0(6%)
-    Belgium vs Austria                      H:51%  D:23%  A:27%  xG:2.12-1.52  Top:1-1 (9%)  → Belgium  [medium]
-                                            Scorelines: 1-1(9%)  2-1(9%)  2-2(7%)  1-2(6%)  3-1(6%)
-    Netherlands vs Turkey                   H:51%  D:23%  A:26%  xG:2.08-1.45  Top:1-1 (10%)  → Netherlands  [medium]
-                                            Scorelines: 1-1(10%)  2-1(9%)  2-2(7%)  1-2(6%)  3-1(6%)
-    Serbia vs Switzerland                   H:50%  D:23%  A:27%  xG:2.01-1.45  Top:1-1 (10%)  → Serbia  [medium]
-                                            Scorelines: 1-1(10%)  2-1(9%)  2-2(7%)  1-2(7%)  2-0(6%)
-
-────────────────────────────────────────────────────────────────────────
-  WEDNESDAY, 01 APRIL 2026
-────────────────────────────────────────────────────────────────────────
-
-  ◆ UEFA Champions League QF Leg 1
-    Real Madrid vs Arsenal                  H:59%  D:17%  A:24%  xG:3.06-2.01  Top:3-2 (6%)  → Real Madrid  [high]
-                                            Scorelines: 3-2(6%)  3-1(6%)  2-2(6%)  2-1(6%)  4-2(5%)
-    Bayern Munich vs PSG                    H:51%  D:18%  A:31%  xG:3.00-2.41  Top:3-2 (6%)  → Bayern Munich  [medium]
-                                            Scorelines: 3-2(6%)  2-2(6%)  3-1(5%)  2-1(5%)  3-3(5%)
-
-────────────────────────────────────────────────────────────────────────
-  THURSDAY, 02 APRIL 2026
-────────────────────────────────────────────────────────────────────────
-
-  ◆ UEFA Champions League QF Leg 1
-    Manchester City vs Inter Milan          H:55%  D:18%  A:27%  xG:2.92-2.12  Top:2-2 (6%)  → Manchester City  [medium]
-                                            Scorelines: 2-2(6%)  3-2(6%)  2-1(6%)  3-1(6%)  1-1(4%)
-    Barcelona vs Atletico Madrid            H:66%  D:16%  A:18%  xG:3.10-1.65  Top:3-1 (7%)  → Barcelona  [high]
-                                            Scorelines: 3-1(7%)  2-1(7%)  3-2(6%)  2-2(6%)  4-1(5%)
+  ◆ International Friendly (Road to 26 — Northwest Stadium, Landover MD)
+    France vs Colombia                      H:37%  D:23%  A:40%  xG:1.82-1.92  Top:1-1 (9%)  → Colombia  [low]
+                                            Scorelines: 1-1(9%)  1-2(8%)  2-1(8%)  2-2(7%)  1-3(5%)
 
 ────────────────────────────────────────────────────────────────────────
   FRIDAY, 03 APRIL 2026
@@ -76,56 +32,56 @@
 ────────────────────────────────────────────────────────────────────────
 
   ◆ Bundesliga
-    Bayern Munich vs Wolfsburg              H:57%  D:22%  A:21%  xG:2.23-1.32  Top:2-1 (9%)  → Bayern Munich  [high]
-                                            Scorelines: 2-1(9%)  1-1(9%)  2-0(7%)  3-1(7%)  2-2(6%)
-    Bayer Leverkusen vs Hoffenheim          H:49%  D:25%  A:26%  xG:1.86-1.31  Top:1-1 (11%)  → Bayer Leverkusen  [medium]
-                                            Scorelines: 1-1(11%)  2-1(10%)  2-0(7%)  1-0(7%)  1-2(7%)
-    Borussia Dortmund vs Augsburg           H:57%  D:25%  A:18%  xG:1.82-0.95  Top:1-1 (12%)  → Borussia Dortmund  [high]
-                                            Scorelines: 1-1(12%)  2-0(10%)  1-0(10%)  2-1(10%)  0-0(7%)
+    SC Freiburg vs Bayern Munich            H:41%  D:23%  A:36%  xG:2.01-1.88  Top:1-1 (8%)  → SC Freiburg  [low]
+                                            Scorelines: 1-1(8%)  2-1(8%)  2-2(7%)  1-2(7%)  3-1(5%)
+    Bayer Leverkusen vs VfL Wolfsburg       H:53%  D:24%  A:23%  xG:1.95-1.25  Top:1-1 (11%)  → Bayer Leverkusen  [medium]
+                                            Scorelines: 1-1(11%)  2-1(10%)  2-0(8%)  1-0(7%)  3-1(6%)
+    Borussia Mönchengladbach vs Heidenheim  H:49%  D:29%  A:23%  xG:1.49-0.95  Top:1-1 (14%)  → Borussia Mönchengladbach  [medium]
+                                            Scorelines: 1-1(14%)  1-0(12%)  0-0(10%)  2-0(10%)  2-1(9%)
+    Hamburger SV vs FC Augsburg             H:49%  D:30%  A:22%  xG:1.39-0.84  Top:1-1 (14%)  → Hamburger SV  [medium]
+                                            Scorelines: 1-1(14%)  1-0(14%)  0-0(12%)  2-0(10%)  2-1(9%)
+    TSG Hoffenheim vs Mainz 05              H:47%  D:30%  A:24%  xG:1.39-0.92  Top:1-1 (14%)  → TSG Hoffenheim  [medium]
+                                            Scorelines: 1-1(14%)  1-0(12%)  0-0(11%)  2-0(10%)  2-1(9%)
+    Werder Bremen vs RB Leipzig             H:48%  D:25%  A:27%  xG:1.79-1.28  Top:1-1 (12%)  → Werder Bremen  [medium]
+                                            Scorelines: 1-1(12%)  2-1(10%)  2-0(7%)  1-0(7%)  1-2(7%)
+    VfB Stuttgart vs Borussia Dortmund      H:45%  D:24%  A:31%  xG:1.86-1.54  Top:1-1 (11%)  → VfB Stuttgart  [low]
+                                            Scorelines: 1-1(11%)  2-1(9%)  1-2(7%)  2-2(7%)  2-0(6%)
 
   ◆ La Liga
-    Real Madrid vs Athletic Bilbao          H:57%  D:20%  A:24%  xG:2.59-1.68  Top:2-1 (8%)  → Real Madrid  [high]
-                                            Scorelines: 2-1(8%)  3-1(7%)  1-1(7%)  2-2(7%)  3-2(6%)
-    Barcelona vs Espanyol                   H:53%  D:24%  A:23%  xG:1.92-1.22  Top:1-1 (11%)  → Barcelona  [medium]
-                                            Scorelines: 1-1(11%)  2-1(10%)  2-0(8%)  1-0(7%)  3-1(6%)
-    Villarreal vs Sevilla                   H:46%  D:28%  A:26%  xG:1.54-1.11  Top:1-1 (13%)  → Villarreal  [medium]
-                                            Scorelines: 1-1(13%)  1-0(10%)  2-1(9%)  2-0(8%)  0-0(8%)
-
-  ◆ Premier League
-    Arsenal vs Crystal Palace               H:51%  D:23%  A:25%  xG:2.01-1.38  Top:1-1 (10%)  → Arsenal  [medium]
-                                            Scorelines: 1-1(10%)  2-1(9%)  2-0(7%)  2-2(6%)  1-2(6%)
-    Chelsea vs Bournemouth                  H:45%  D:27%  A:28%  xG:1.58-1.20  Top:1-1 (13%)  → Chelsea  [medium]
-                                            Scorelines: 1-1(13%)  2-1(9%)  1-0(9%)  2-0(8%)  0-0(7%)
-    Liverpool vs Everton                    H:52%  D:23%  A:25%  xG:2.01-1.35  Top:1-1 (10%)  → Liverpool  [medium]
-                                            Scorelines: 1-1(10%)  2-1(9%)  2-0(7%)  2-2(6%)  3-1(6%)
-    Manchester United vs Fulham             H:47%  D:29%  A:24%  xG:1.45-0.98  Top:1-1 (14%)  → Manchester United  [medium]
-                                            Scorelines: 1-1(14%)  1-0(12%)  0-0(10%)  2-0(9%)  2-1(9%)
-    Aston Villa vs Newcastle United         H:51%  D:23%  A:25%  xG:2.01-1.38  Top:1-1 (10%)  → Aston Villa  [medium]
-                                            Scorelines: 1-1(10%)  2-1(9%)  2-0(7%)  2-2(6%)  1-2(6%)
-    Tottenham vs Southampton                H:48%  D:31%  A:21%  xG:1.32-0.78  Top:1-0 (15%)  → Tottenham  [medium]
-                                            Scorelines: 1-0(15%)  1-1(14%)  0-0(13%)  2-0(11%)  2-1(8%)
-    Brighton vs West Ham                    H:44%  D:29%  A:28%  xG:1.45-1.11  Top:1-1 (14%)  → Brighton  [low]
-                                            Scorelines: 1-1(14%)  1-0(10%)  0-0(9%)  2-1(9%)  2-0(8%)
-    Wolves vs Leicester City                H:39%  D:34%  A:27%  xG:1.07-0.86  Top:0-0 (16%)  → Wolves  [low]
-                                            Scorelines: 0-0(16%)  1-1(15%)  1-0(14%)  0-1(11%)  2-0(8%)
-    Brentford vs Ipswich Town               H:43%  D:33%  A:25%  xG:1.19-0.84  Top:0-0 (14%)  → Brentford  [low]
-                                            Scorelines: 0-0(14%)  1-1(14%)  1-0(14%)  0-1(10%)  2-0(9%)
+    Mallorca vs Real Madrid                 H:41%  D:25%  A:35%  xG:1.77-1.62  Top:1-1 (11%)  → Mallorca  [low]
+                                            Scorelines: 1-1(11%)  2-1(9%)  1-2(8%)  2-2(7%)  2-0(5%)
+    Real Betis vs Espanyol                  H:45%  D:30%  A:25%  xG:1.35-0.95  Top:1-1 (14%)  → Real Betis  [low]
+                                            Scorelines: 1-1(14%)  1-0(12%)  0-0(11%)  2-0(9%)  2-1(9%)
+    Atletico Madrid vs Barcelona            H:39%  D:21%  A:41%  xG:2.23-2.29  Top:2-2 (7%)  → Barcelona  [low]
+                                            Scorelines: 2-2(7%)  1-2(6%)  2-1(6%)  1-1(6%)  2-3(5%)
+    Real Sociedad vs Levante                H:45%  D:30%  A:25%  xG:1.39-0.98  Top:1-1 (14%)  → Real Sociedad  [medium]
+                                            Scorelines: 1-1(14%)  1-0(12%)  0-0(11%)  2-0(9%)  2-1(9%)
 
   ◆ Serie A
-    Juventus vs Lazio                       H:43%  D:24%  A:33%  xG:1.82-1.57  Top:1-1 (11%)  → Juventus  [low]
-                                            Scorelines: 1-1(11%)  2-1(9%)  1-2(8%)  2-2(7%)  2-0(6%)
-    Atalanta vs Fiorentina                  H:52%  D:23%  A:25%  xG:2.08-1.39  Top:1-1 (10%)  → Atalanta  [medium]
-                                            Scorelines: 1-1(10%)  2-1(9%)  2-0(7%)  2-2(7%)  3-1(6%)
+    Sassuolo vs Cagliari                    H:46%  D:31%  A:23%  xG:1.28-0.84  Top:1-1 (14%)  → Sassuolo  [medium]
+                                            Scorelines: 1-1(14%)  1-0(14%)  0-0(13%)  2-0(10%)  0-1(9%)
+    Hellas Verona vs Fiorentina             H:41%  D:30%  A:30%  xG:1.31-1.08  Top:1-1 (14%)  → Hellas Verona  [low]
+                                            Scorelines: 1-1(14%)  1-0(11%)  0-0(10%)  0-1(9%)  2-1(8%)
+    Lazio vs Parma                          H:49%  D:28%  A:22%  xG:1.52-0.95  Top:1-1 (13%)  → Lazio  [medium]
+                                            Scorelines: 1-1(13%)  1-0(12%)  2-0(10%)  0-0(10%)  2-1(9%)
 
 ────────────────────────────────────────────────────────────────────────
   SUNDAY, 05 APRIL 2026
 ────────────────────────────────────────────────────────────────────────
 
+  ◆ Bundesliga
+    Union Berlin vs FC St. Pauli            H:43%  D:31%  A:26%  xG:1.31-0.97  Top:1-1 (14%)  → Union Berlin  [low]
+                                            Scorelines: 1-1(14%)  1-0(12%)  0-0(12%)  2-0(9%)  0-1(9%)
+    Eintracht Frankfurt vs 1. FC Köln       H:49%  D:28%  A:22%  xG:1.52-0.95  Top:1-1 (13%)  → Eintracht Frankfurt  [medium]
+                                            Scorelines: 1-1(13%)  1-0(12%)  2-0(10%)  0-0(10%)  2-1(9%)
+
   ◆ La Liga
-    Atletico Madrid vs Valencia             H:40%  D:26%  A:34%  xG:1.60-1.46  Top:1-1 (12%)  → Atletico Madrid  [low]
-                                            Scorelines: 1-1(12%)  2-1(9%)  1-2(8%)  2-2(6%)  1-0(6%)
-    Real Betis vs Getafe                    H:50%  D:29%  A:22%  xG:1.49-0.90  Top:1-1 (14%)  → Real Betis  [medium]
-                                            Scorelines: 1-1(14%)  1-0(12%)  0-0(10%)  2-0(10%)  2-1(9%)
+    Getafe vs Athletic Club                 H:40%  D:29%  A:31%  xG:1.42-1.22  Top:1-1 (14%)  → Getafe  [low]
+                                            Scorelines: 1-1(14%)  1-0(9%)  2-1(9%)  0-0(8%)  1-2(8%)
+    Valencia vs Celta de Vigo               H:43%  D:31%  A:26%  xG:1.28-0.94  Top:1-1 (14%)  → Valencia  [low]
+                                            Scorelines: 1-1(14%)  1-0(13%)  0-0(12%)  2-0(9%)  0-1(9%)
+    Alaves vs Osasuna                       H:42%  D:33%  A:25%  xG:1.17-0.85  Top:0-0 (15%)  → Alaves  [low]
+                                            Scorelines: 0-0(15%)  1-1(15%)  1-0(14%)  0-1(10%)  2-0(9%)
 
   ◆ Ligue 1
     PSG vs Marseille                        H:61%  D:18%  A:21%  xG:2.86-1.70  Top:2-1 (7%)  → PSG  [high]
@@ -135,10 +91,6 @@
     Lille vs Lens                           H:45%  D:25%  A:30%  xG:1.77-1.42  Top:1-1 (11%)  → Lille  [low]
                                             Scorelines: 1-1(11%)  2-1(9%)  1-2(7%)  2-2(6%)  2-0(6%)
 
-  ◆ Premier League
-    Manchester City vs Nottingham Forest    H:58%  D:22%  A:20%  xG:2.23-1.28  Top:2-1 (10%)  → Manchester City  [high]
-                                            Scorelines: 2-1(10%)  1-1(9%)  2-0(7%)  3-1(7%)  2-2(6%)
-
   ◆ Serie A
     Inter Milan vs AC Milan                 H:51%  D:20%  A:29%  xG:2.46-1.88  Top:2-1 (7%)  → Inter Milan  [medium]
                                             Scorelines: 2-1(7%)  2-2(7%)  1-1(7%)  3-1(6%)  3-2(6%)
@@ -146,16 +98,31 @@
                                             Scorelines: 1-1(10%)  2-1(9%)  2-2(7%)  1-2(7%)  3-1(6%)
 
 ────────────────────────────────────────────────────────────────────────
+  TUESDAY, 07 APRIL 2026
+────────────────────────────────────────────────────────────────────────
+
+  ◆ UEFA Champions League QF Leg 1
+    Sporting CP vs Arsenal                  H:53%  D:20%  A:27%  xG:2.51-1.79  Top:2-1 (8%)  → Sporting CP  [medium]
+                                            Scorelines: 2-1(8%)  2-2(7%)  1-1(7%)  3-1(6%)  3-2(6%)
+    Real Madrid vs Bayern Munich            H:50%  D:18%  A:32%  xG:2.94-2.39  Top:2-2 (6%)  → Real Madrid  [medium]
+                                            Scorelines: 2-2(6%)  3-2(6%)  2-1(5%)  3-1(5%)  2-3(5%)
+
+────────────────────────────────────────────────────────────────────────
+  WEDNESDAY, 08 APRIL 2026
+────────────────────────────────────────────────────────────────────────
+
+  ◆ UEFA Champions League QF Leg 1
+    Barcelona vs Atletico Madrid            H:66%  D:16%  A:18%  xG:3.10-1.65  Top:3-1 (7%)  → Barcelona  [high]
+                                            Scorelines: 3-1(7%)  2-1(7%)  3-2(6%)  2-2(6%)  4-1(5%)
+    PSG vs Liverpool                        H:65%  D:15%  A:20%  xG:3.49-2.08  Top:3-2 (6%)  → PSG  [high]
+                                            Scorelines: 3-2(6%)  3-1(6%)  4-2(5%)  2-2(5%)  4-1(5%)
+
+────────────────────────────────────────────────────────────────────────
   HIGH CONFIDENCE PICKS
 ────────────────────────────────────────────────────────────────────────
-  2026-03-29  Portugal vs Czech Republic                HOME WIN  (55%)
-  2026-04-01  Real Madrid vs Arsenal                       HOME WIN  (59%)
-  2026-04-02  Barcelona vs Atletico Madrid               HOME WIN  (66%)
-  2026-04-04  Bayern Munich vs Wolfsburg                     HOME WIN  (57%)
-  2026-04-04  Borussia Dortmund vs Augsburg                      HOME WIN  (57%)
-  2026-04-04  Real Madrid vs Athletic Bilbao               HOME WIN  (57%)
-  2026-04-05  PSG vs Marseille                     HOME WIN  (61%)
-  2026-04-05  Manchester City vs Nottingham Forest             HOME WIN  (58%)
+  2026-04-05  PSG vs Marseille                          HOME WIN  (61%)
+  2026-04-08  Barcelona vs Atletico Madrid              HOME WIN  (66%)
+  2026-04-08  PSG vs Liverpool                          HOME WIN  (65%)
 
 ────────────────────────────────────────────────────────────────────────
   MODEL NOTES
@@ -166,11 +133,20 @@
             (XGBoost + LightGBM + CatBoost + Logistic Regression)
   This run: Seeded Dixon-Coles only (no trained models on disk)
   Priors:   Built-in team-strength parameters from 2024-25 season form
-  Home adv: +0.30 (log-scale); suppressed for neutral-venue UCL fixtures
+  Home adv: +0.30 (log-scale); suppressed for neutral-venue friendlies
   Low-score correction: Dixon-Coles tau term applied to 0-0/1-0/0-1/1-1
-  Fixtures: 43 matches — WC 2026 Qualifiers (UEFA+CONMEBOL),
-            UCL QF Leg 1, Premier League, La Liga,
-            Bundesliga, Serie A, Ligue 1
+  Fixtures: 31 matches — 1 International Friendly (France vs Colombia),
+            Ligue 1, Bundesliga, La Liga, Serie A,
+            UCL QF Leg 1 (Apr 7-8 — verified schedule)
+  Note:     All March 29 WC-qualifier entries from the previous run were
+            removed — those matches were hallucinated. The real fixture
+            on March 29 is the France vs Colombia “Road to 26” friendly
+            at Northwest Stadium, Landover MD (neutral venue).
+            UCL QF Leg 1 dates corrected to 7-8 April 2026 with verified
+            matchups (Sporting CP/Arsenal, Real Madrid/Bayern Munich,
+            Barcelona/Atletico Madrid, PSG/Liverpool). Premier League
+            fixtures on 4-5 April 2026 were also removed — no PL matches
+            that weekend (GW restarts 10 April 2026).
 
 ========================================================================
   Generated by FootPredict-Pro
