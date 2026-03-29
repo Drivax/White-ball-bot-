@@ -9,10 +9,16 @@ directly.  Otherwise a Dixon-Coles model is seeded with built-in team-strength
 priors so that predictions are still informative without any data download or
 training step.
 
-Fixture data is sourced from API-Football when an API key is configured in
-config.yaml; if the key is absent or the request fails the script automatically
-falls back to a curated static fixture list covering the period
-2026-03-29 → 2026-04-05 (today + next week).
+Fixture data is sourced in the following priority order:
+
+  1. API-Football (paid/free API key, configured in config.yaml)
+  2. Live web scrapers: SofaScore → TheSportsDB → BBC Sport
+     (all free, no API key required; see src/data_ingestion/fixtures_scraper.py)
+  3. Hardcoded static fixture list (last-resort fallback for the specific week
+     of 2026-03-29 → 2026-04-05 only; will not cover other date ranges).
+
+The live scrapers in step 2 ensure the bot always has real, up-to-date fixtures
+and never has to rely on stale or invented match lists.
 
 Usage:
     # Predict today + next 7 days (uses config.yaml API key if set)
@@ -51,8 +57,11 @@ from src.models.ensemble import MasterEnsemble, MatchPrediction
 
 
 # ---------------------------------------------------------------------------
-# Static fixture list – used when API-Football is not configured
-# Covers: 29 March 2026 (today) through 5 April 2026 (next Sunday)
+# Static fixture list – LAST-RESORT fallback only.
+# Used when BOTH API-Football AND all live web scrapers are unavailable.
+# This list covers only: 29 March 2026 → 5 April 2026.
+# It will NOT produce fixtures for any other date range.
+# DO NOT add new fixtures here — fix the live scrapers instead.
 # ---------------------------------------------------------------------------
 
 #: Each entry: date (ISO), competition, home, away
@@ -311,27 +320,55 @@ def _get_fixtures(
     competition_filter: Optional[str],
 ) -> List[Dict[str, Any]]:
     """
-    Return fixtures in the date range, trying API then falling back to static list.
+    Return fixtures in the date range.
+
+    Priority:
+      1. API-Football (if key configured)
+      2. Live web scrapers (SofaScore → TheSportsDB → BBC Sport)
+      3. Static hardcoded fallback (only covers 2026-03-29 → 2026-04-05)
     """
     fixtures: List[Dict[str, Any]] = []
 
+    # ── 1. API-Football ───────────────────────────────────────────────────────
     if api_key and api_key not in ("", "YOUR_API_FOOTBALL_KEY"):
         try:
             fixtures = _fetch_upcoming_from_api(date_from, date_to, api_key)
         except Exception as exc:
             logger.warning(
                 f"API-Football fetch failed ({exc}). "
-                "Falling back to static fixture list."
+                "Trying live web scrapers next."
             )
 
+    # ── 2. Live web scrapers ──────────────────────────────────────────────────
     if not fixtures:
-        logger.info("Using built-in static fixture list.")
+        try:
+            from src.data_ingestion.fixtures_scraper import fetch_live_fixtures
+            fixtures = fetch_live_fixtures(date_from, date_to)
+            if fixtures:
+                logger.info(f"Live scraper returned {len(fixtures)} fixtures.")
+        except Exception as exc:
+            logger.warning(f"Live scraper failed ({exc}). Falling back to static list.")
+
+    # ── 3. Hardcoded static fallback ──────────────────────────────────────────
+    if not fixtures:
+        logger.warning(
+            "All live sources unavailable. Using built-in static fixture list "
+            "(covers 2026-03-29 → 2026-04-05 only)."
+        )
         d0 = datetime.strptime(date_from, "%Y-%m-%d").date()
         d1 = datetime.strptime(date_to, "%Y-%m-%d").date()
         fixtures = [
             f for f in STATIC_FIXTURES
             if d0 <= datetime.strptime(f["date"], "%Y-%m-%d").date() <= d1
         ]
+        if not fixtures:
+            logger.error(
+                "Static fixture list has no entries for %s → %s. "
+                "Configure API-Football or ensure network access so the live "
+                "scrapers can fetch real fixtures.",
+                date_from,
+                date_to,
+            )
 
     if competition_filter:
         cf = competition_filter.lower()
