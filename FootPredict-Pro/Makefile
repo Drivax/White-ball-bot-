@@ -38,6 +38,9 @@ backtest:  ## Run temporal backtesting (SEASONS="2021 2022 2023")
 predict:  ## Quick prediction (HOME="Team A" AWAY="Team B")
 	python src/inference/predict_match.py --home $(HOME) --away $(AWAY)
 
+predict-upcoming:  ## Predict all upcoming fixtures (today + next 7 days). Cross-platform: uses GNU date on Linux, BSD date on macOS.
+	python src/inference/predict_upcoming.py --date-from $(shell date +%Y-%m-%d) --date-to $(shell date -d '+7 days' +%Y-%m-%d 2>/dev/null || date -v+7d +%Y-%m-%d)
+
 app:  ## Launch Streamlit web UI
 	streamlit run app/streamlit_app.py
 
