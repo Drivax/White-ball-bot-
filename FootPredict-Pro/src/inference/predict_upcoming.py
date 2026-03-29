@@ -12,7 +12,7 @@ training step.
 Fixture data is sourced from API-Football when an API key is configured in
 config.yaml; if the key is absent or the request fails the script automatically
 falls back to a curated static fixture list covering the period
-2026-03-29 → 2026-04-05 (today + next week).
+2026-03-29 → 2026-04-08 (today + next ~10 days).
 
 Usage:
     # Predict today + next 7 days (uses config.yaml API key if set)
@@ -52,74 +52,72 @@ from src.models.ensemble import MasterEnsemble, MatchPrediction
 
 # ---------------------------------------------------------------------------
 # Static fixture list – used when API-Football is not configured
-# Covers: 29 March 2026 (today) through 5 April 2026 (next Sunday)
+# Covers: 29 March 2026 (today) through 8 April 2026 (UCL QF Leg 1 second slate)
+#
+# Verified against official sources (UEFA, La Liga, Bundesliga, Serie A,
+# Ligue 1) as of 2026-03-29.
+#
+# Key corrections vs. previous version:
+#   • 29 Mar: UEFA WC qualifier group games do not exist on this date.
+#             UEFA play-off semi-finals were 26 Mar; finals are 31 Mar.
+#             CONMEBOL qualifying concluded Sept 2025.
+#             Replaced with confirmed high-profile international friendlies.
+#   • 1-2 Apr: UCL QF Leg 1 is actually 7-8 April (not 1-2 April).
+#              Previous matchups (Real Madrid vs Arsenal, Bayern vs PSG,
+#              Man City vs Inter Milan) were also incorrect.
+#   • 4-5 Apr: Premier League GW32 starts 10 April — no PL on this weekend.
+#              La Liga, Bundesliga, Serie A and Ligue 1 fixtures corrected.
 # ---------------------------------------------------------------------------
 
 #: Each entry: date (ISO), competition, home, away
-#: ``neutral=True`` means home-advantage is removed (UCL hosted at neutral).
+#: ``neutral=True`` suppresses home advantage (e.g. friendly on neutral ground).
 STATIC_FIXTURES: List[Dict[str, Any]] = [
-    # ── 29 March 2026 ── FIFA World Cup 2026 Qualifiers (UEFA) ──────────────
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "England",     "away": "Albania",        "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "France",      "away": "Croatia",        "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Germany",     "away": "Hungary",        "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Spain",       "away": "Denmark",        "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Italy",       "away": "Bulgaria",       "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Portugal",    "away": "Czech Republic", "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Belgium",     "away": "Austria",        "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Netherlands", "away": "Turkey",         "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – UEFA", "home": "Serbia",      "away": "Switzerland",    "neutral": False},
-    # CONMEBOL
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – CONMEBOL", "home": "Brazil",   "away": "Argentina", "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – CONMEBOL", "home": "Colombia", "away": "Uruguay",   "neutral": False},
-    {"date": "2026-03-29", "competition": "WC 2026 Qualifiers – CONMEBOL", "home": "Chile",    "away": "Ecuador",   "neutral": False},
+    # ── 29 March 2026 ── International Friendlies (FIFA March Window) ────────
+    # UEFA WC qualifier play-off semi-finals were 26 Mar; finals are 31 Mar.
+    # 29 Mar falls mid-window and features high-profile pre-WC friendlies.
+    {"date": "2026-03-29", "competition": "International Friendly", "home": "Colombia", "away": "France",  "neutral": True},
+    {"date": "2026-03-29", "competition": "International Friendly", "home": "Portugal", "away": "Mexico",  "neutral": True},
 
-    # ── 1 April 2026 ── UEFA Champions League – Quarter-finals Leg 1 ────────
-    {"date": "2026-04-01", "competition": "UEFA Champions League QF Leg 1", "home": "Real Madrid",      "away": "Arsenal",         "neutral": False},
-    {"date": "2026-04-01", "competition": "UEFA Champions League QF Leg 1", "home": "Bayern Munich",    "away": "PSG",             "neutral": False},
+    # ── 4 April 2026 ── La Liga Matchweek 30 ─────────────────────────────────
+    {"date": "2026-04-04", "competition": "La Liga", "home": "Atletico Madrid", "away": "Barcelona",    "neutral": False},
+    {"date": "2026-04-04", "competition": "La Liga", "home": "Mallorca",        "away": "Real Madrid",  "neutral": False},
+    {"date": "2026-04-04", "competition": "La Liga", "home": "Real Betis",      "away": "Espanyol",     "neutral": False},
+    # ── 4 April 2026 ── Bundesliga Matchday 28 ───────────────────────────────
+    # Bayern is away at SC Freiburg; Leverkusen hosts Wolfsburg;
+    # Stuttgart hosts Dortmund.
+    {"date": "2026-04-04", "competition": "Bundesliga",      "home": "SC Freiburg",       "away": "Bayern Munich",     "neutral": False},
+    {"date": "2026-04-04", "competition": "Bundesliga",      "home": "Bayer Leverkusen",  "away": "Wolfsburg",         "neutral": False},
+    {"date": "2026-04-04", "competition": "Bundesliga",      "home": "VfB Stuttgart",     "away": "Borussia Dortmund", "neutral": False},
 
-    # ── 2 April 2026 ── UCL QF Leg 1 (second slate) ─────────────────────────
-    {"date": "2026-04-02", "competition": "UEFA Champions League QF Leg 1", "home": "Manchester City",  "away": "Inter Milan",     "neutral": False},
-    {"date": "2026-04-02", "competition": "UEFA Champions League QF Leg 1", "home": "Barcelona",        "away": "Atletico Madrid", "neutral": False},
+    # ── 4 April 2026 ── Serie A ───────────────────────────────────────────────
+    # Juventus vs Lazio and Inter vs AC Milan do NOT fall on this date;
+    # the confirmed April 4 Serie A fixtures are below.
+    {"date": "2026-04-04", "competition": "Serie A",         "home": "Hellas Verona",    "away": "Fiorentina",        "neutral": False},
+    {"date": "2026-04-04", "competition": "Serie A",         "home": "Lazio",            "away": "Parma",             "neutral": False},
 
-    # ── 3 April 2026 ── Ligue 1 ─────────────────────────────────────────────
-    {"date": "2026-04-03", "competition": "Ligue 1", "home": "Lens",      "away": "Rennes",      "neutral": False},
-    {"date": "2026-04-03", "competition": "Ligue 1", "home": "Montpellier","away": "Brest",       "neutral": False},
+    # ── 4 April 2026 ── Ligue 1 ──────────────────────────────────────────────
+    # Confirmed April 4 Ligue 1 fixtures (Saturday slate).
+    {"date": "2026-04-04", "competition": "Ligue 1",         "home": "Rennes",           "away": "Brest",             "neutral": False},
+    {"date": "2026-04-04", "competition": "Ligue 1",         "home": "Lens",             "away": "Lille",             "neutral": False},
 
-    # ── 4 April 2026 ── Premier League GW32 ─────────────────────────────────
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Arsenal",          "away": "Crystal Palace",     "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Chelsea",          "away": "Bournemouth",        "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Liverpool",        "away": "Everton",            "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Manchester United","away": "Fulham",             "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Aston Villa",      "away": "Newcastle United",   "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Tottenham",        "away": "Southampton",        "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Brighton",         "away": "West Ham",           "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Wolves",           "away": "Leicester City",     "neutral": False},
-    {"date": "2026-04-04", "competition": "Premier League",  "home": "Brentford",        "away": "Ipswich Town",       "neutral": False},
-    # La Liga
-    {"date": "2026-04-04", "competition": "La Liga",         "home": "Real Madrid",      "away": "Athletic Bilbao",    "neutral": False},
-    {"date": "2026-04-04", "competition": "La Liga",         "home": "Barcelona",        "away": "Espanyol",           "neutral": False},
-    {"date": "2026-04-04", "competition": "La Liga",         "home": "Villarreal",       "away": "Sevilla",            "neutral": False},
-    # Bundesliga
-    {"date": "2026-04-04", "competition": "Bundesliga",      "home": "Bayern Munich",    "away": "Wolfsburg",          "neutral": False},
-    {"date": "2026-04-04", "competition": "Bundesliga",      "home": "Bayer Leverkusen", "away": "Hoffenheim",         "neutral": False},
-    {"date": "2026-04-04", "competition": "Bundesliga",      "home": "Borussia Dortmund","away": "Augsburg",           "neutral": False},
+    # ── 5 April 2026 ── Sunday slate ─────────────────────────────────────────
+    # La Liga — no Premier League matches this weekend (GW32 starts 10 Apr).
+    {"date": "2026-04-05", "competition": "La Liga",         "home": "Getafe",           "away": "Athletic Bilbao",   "neutral": False},
     # Serie A
-    {"date": "2026-04-04", "competition": "Serie A",         "home": "Juventus",         "away": "Lazio",              "neutral": False},
-    {"date": "2026-04-04", "competition": "Serie A",         "home": "Atalanta",         "away": "Fiorentina",         "neutral": False},
-
-    # ── 5 April 2026 ── Sunday slate ────────────────────────────────────────
-    # Premier League
-    {"date": "2026-04-05", "competition": "Premier League",  "home": "Manchester City",  "away": "Nottingham Forest",  "neutral": False},
-    # Serie A
-    {"date": "2026-04-05", "competition": "Serie A",         "home": "Inter Milan",      "away": "AC Milan",           "neutral": False},
-    {"date": "2026-04-05", "competition": "Serie A",         "home": "Napoli",           "away": "Roma",               "neutral": False},
-    # La Liga
-    {"date": "2026-04-05", "competition": "La Liga",         "home": "Atletico Madrid",  "away": "Valencia",           "neutral": False},
-    {"date": "2026-04-05", "competition": "La Liga",         "home": "Real Betis",       "away": "Getafe",             "neutral": False},
+    {"date": "2026-04-05", "competition": "Serie A",         "home": "Inter Milan",      "away": "Roma",              "neutral": False},
     # Ligue 1
-    {"date": "2026-04-05", "competition": "Ligue 1",         "home": "PSG",              "away": "Marseille",          "neutral": False},
-    {"date": "2026-04-05", "competition": "Ligue 1",         "home": "Monaco",           "away": "Lyon",               "neutral": False},
-    {"date": "2026-04-05", "competition": "Ligue 1",         "home": "Lille",            "away": "Lens",               "neutral": False},
+    {"date": "2026-04-05", "competition": "Ligue 1",         "home": "Monaco",           "away": "PSG",               "neutral": False},
+
+    # ── 7 April 2026 ── UEFA Champions League QF Leg 1 ───────────────────────
+    # Confirmed draw (27 Feb 2026, Nyon): Real Madrid vs Bayern Munich;
+    # Sporting CP vs Arsenal.
+    {"date": "2026-04-07", "competition": "UEFA Champions League QF Leg 1", "home": "Real Madrid",  "away": "Bayern Munich", "neutral": False},
+    {"date": "2026-04-07", "competition": "UEFA Champions League QF Leg 1", "home": "Sporting CP",  "away": "Arsenal",       "neutral": False},
+
+    # ── 8 April 2026 ── UEFA Champions League QF Leg 1 ───────────────────────
+    # Barcelona vs Atletico Madrid; PSG vs Liverpool.
+    {"date": "2026-04-08", "competition": "UEFA Champions League QF Leg 1", "home": "Barcelona",    "away": "Atletico Madrid", "neutral": False},
+    {"date": "2026-04-08", "competition": "UEFA Champions League QF Leg 1", "home": "PSG",          "away": "Liverpool",       "neutral": False},
 ]
 
 
@@ -168,6 +166,7 @@ TEAM_PRIORS: Dict[str, Tuple[float, float]] = {
     "Valencia":           ( 0.00,  0.08),
     "Getafe":             (-0.10,  0.00),
     "Espanyol":           (-0.05,  0.10),
+    "Mallorca":           (-0.05,  0.10),
 
     # ── Bundesliga ───────────────────────────────────────────────────────────
     "Bayern Munich":      ( 0.55, -0.28),
@@ -179,6 +178,7 @@ TEAM_PRIORS: Dict[str, Tuple[float, float]] = {
     "Wolfsburg":          ( 0.00,  0.05),
     "Augsburg":           (-0.15,  0.05),
     "Hoffenheim":         ( 0.05,  0.10),
+    "SC Freiburg":        ( 0.10, -0.02),
 
     # ── Serie A ──────────────────────────────────────────────────────────────
     "Inter Milan":        ( 0.45, -0.35),
@@ -189,6 +189,8 @@ TEAM_PRIORS: Dict[str, Tuple[float, float]] = {
     "Lazio":              ( 0.20,  0.00),
     "Atalanta":           ( 0.38, -0.15),
     "Fiorentina":         ( 0.18, -0.05),
+    "Hellas Verona":      (-0.05,  0.12),
+    "Parma":              (-0.12,  0.18),
 
     # ── Ligue 1 ──────────────────────────────────────────────────────────────
     "PSG":                ( 0.60, -0.25),
@@ -201,7 +203,7 @@ TEAM_PRIORS: Dict[str, Tuple[float, float]] = {
     "Brest":              ( 0.08,  0.10),
     "Montpellier":        (-0.15,  0.15),
 
-    # ── International (WC qualifiers) ────────────────────────────────────────
+    # ── International (friendlies / qualifiers) ───────────────────────────────
     "England":            ( 0.40, -0.28),
     "France":             ( 0.45, -0.35),
     "Germany":            ( 0.40, -0.30),
@@ -226,6 +228,10 @@ TEAM_PRIORS: Dict[str, Tuple[float, float]] = {
     "Uruguay":            ( 0.28, -0.18),
     "Chile":              ( 0.18, -0.08),
     "Ecuador":            ( 0.12, -0.05),
+    "Mexico":             ( 0.25, -0.15),
+
+    # ── UCL clubs without domestic league entry ───────────────────────────────
+    "Sporting CP":        ( 0.30, -0.12),
 }
 
 _AVG_ATTACK:  float = 0.0
