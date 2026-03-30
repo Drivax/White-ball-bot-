@@ -5,9 +5,12 @@ Fetches real upcoming football fixtures from multiple free, no-key-required
 public sources so the bot never has to rely on stale hardcoded match lists.
 
 Priority order (each source tried in sequence; first success wins):
-  1. SofaScore unofficial public API  (no key, comprehensive)
-  2. BBC Sport fixtures HTML scrape    (no key, major leagues)
+  1. ESPN public API                   (free JSON, no key, very reliable)
+  2. SofaScore unofficial public API   (no key, comprehensive)
   3. TheSportsDB free API              (key "3", limited but reliable)
+  4. BBC Sport fixtures HTML scrape    (no key, major leagues)
+  5. FootballScraper                   (worldfootball.net BS4 + Selenium fallback;
+                                        see src/data_ingestion/league_scrapers.py)
 
 Returns a list of fixture dicts in the same format used by STATIC_FIXTURES in
 predict_upcoming.py::
@@ -401,9 +404,11 @@ def fetch_live_fixtures(
     Fetch upcoming tracked football fixtures from the best available live source.
 
     Tries sources in this order and returns the first successful non-empty result:
-      1. SofaScore unofficial API
-      2. TheSportsDB free API
-      3. BBC Sport HTML scrape
+      1. ESPN public API          (free JSON, no key, very reliable)
+      2. SofaScore unofficial API (comprehensive, no key)
+      3. TheSportsDB free API     (key "3", limited but reliable)
+      4. BBC Sport HTML scrape    (major leagues, no key)
+      5. FootballScraper          (worldfootball.net BS4 + Selenium fallback)
 
     Args:
         date_from: ISO-8601 start date (default: today).
@@ -418,10 +423,21 @@ def fetch_live_fixtures(
         d0 = date.fromisoformat(date_from)
         date_to = (d0 + timedelta(days=7)).isoformat()
 
+    def _espn_source() -> List[Dict[str, Any]]:
+        from src.data_ingestion.league_scrapers import fetch_espn
+        return fetch_espn(date_from, date_to, timeout=timeout)
+
+    def _football_scraper_source() -> List[Dict[str, Any]]:
+        from src.data_ingestion.league_scrapers import FootballScraper
+        scraper = FootballScraper(timeout=timeout)
+        return scraper.scrape_all(date_from, date_to)
+
     sources = [
-        ("SofaScore", lambda: fetch_sofascore(date_from, date_to, timeout=timeout)),
-        ("TheSportsDB", lambda: fetch_sportsdb(date_from, date_to, timeout=timeout)),
-        ("BBC Sport", lambda: fetch_bbc_sport(date_from, date_to, timeout=timeout)),
+        ("ESPN",            _espn_source),
+        ("SofaScore",       lambda: fetch_sofascore(date_from, date_to, timeout=timeout)),
+        ("TheSportsDB",     lambda: fetch_sportsdb(date_from, date_to, timeout=timeout)),
+        ("BBC Sport",       lambda: fetch_bbc_sport(date_from, date_to, timeout=timeout)),
+        ("FootballScraper", _football_scraper_source),
     ]
 
     for name, fetcher in sources:
