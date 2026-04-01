@@ -211,6 +211,44 @@ def _fetch_espn_league_day(
     return _parse_espn_events(data, competition, day, d0, d1)
 
 
+def _fetch_espn_league_range(
+    league_slug: str,
+    competition: str,
+    date_from: str,
+    date_to: str,
+    d0: date,
+    d1: date,
+    session: requests.Session,
+    timeout: int = 15,
+) -> List[Dict[str, Any]]:
+    """
+    Fetch fixtures for a date range from ESPN's free scoreboard API.
+
+    ESPN accepts a ``dates`` parameter in the format ``YYYYMMDD-YYYYMMDD``
+    which returns all events across the full range in one request — far more
+    reliable than querying day-by-day.
+
+    Args:
+        league_slug:  ESPN league slug (e.g. ``"eng.1"``).
+        competition:  Canonical competition name.
+        date_from:    ISO-8601 start date string.
+        date_to:      ISO-8601 end date string.
+        d0:           Start date object (for range filtering).
+        d1:           End date object (for range filtering).
+        session:      ``requests.Session`` to reuse.
+        timeout:      Request timeout in seconds.
+
+    Returns:
+        List of fixture dicts within [d0, d1].
+    """
+    date_range = f"{date_from.replace('-', '')}-{date_to.replace('-', '')}"
+    url = f"{_ESPN_BASE}/{league_slug}/scoreboard"
+    resp = session.get(url, params={"dates": date_range}, timeout=timeout)
+    resp.raise_for_status()
+    data = resp.json()
+    return _parse_espn_events(data, competition, date_from, d0, d1)
+
+
 def fetch_espn(
     date_from: str,
     date_to: str,
@@ -220,13 +258,16 @@ def fetch_espn(
     """
     Fetch upcoming football fixtures from ESPN's free public API.
 
-    Queries every (league, day) pair in the date range.
+    Makes one request per league using a date-range parameter
+    (``dates=YYYYMMDD-YYYYMMDD``) rather than querying each day separately.
+    The range format is reliably supported by ESPN and returns all scheduled
+    events across the full window in a single call.
 
     Args:
         date_from: ISO-8601 start date.
         date_to:   ISO-8601 end date (inclusive).
         timeout:   Per-request timeout in seconds.
-        delay:     Seconds to wait between requests (courtesy rate-limit).
+        delay:     Seconds to wait between league requests (courtesy rate-limit).
 
     Returns:
         Combined, deduplicated list of fixture dicts.
@@ -243,24 +284,21 @@ def fetch_espn(
     all_fixtures: List[Dict[str, Any]] = []
     seen: set = set()
 
-    for slug, competition in _ESPN_LEAGUES.items():
-        current = d0
-        while current <= d1:
-            day = current.isoformat()
-            try:
-                day_fixtures = _fetch_espn_league_day(
-                    slug, competition, day, d0, d1, session, timeout
-                )
-                for fix in day_fixtures:
-                    key = (fix["date"], fix["competition"], fix["home"], fix["away"])
-                    if key not in seen:
-                        seen.add(key)
-                        all_fixtures.append(fix)
-            except Exception as exc:
-                logger.debug(f"ESPN [{slug}/{day}]: {exc}")
-            current += timedelta(days=1)
-            if current <= d1:
-                time.sleep(delay)
+    slugs = list(_ESPN_LEAGUES.items())
+    for idx, (slug, competition) in enumerate(slugs):
+        try:
+            league_fixtures = _fetch_espn_league_range(
+                slug, competition, date_from, date_to, d0, d1, session, timeout
+            )
+            for fix in league_fixtures:
+                key = (fix["date"], fix["competition"], fix["home"], fix["away"])
+                if key not in seen:
+                    seen.add(key)
+                    all_fixtures.append(fix)
+        except Exception as exc:
+            logger.debug(f"ESPN [{slug}]: {exc}")
+        if delay > 0 and idx < len(slugs) - 1:
+            time.sleep(delay)
 
     logger.info(
         f"ESPN API: fetched {len(all_fixtures)} fixtures ({date_from} → {date_to})"
@@ -694,24 +732,14 @@ class FootballScraper:
         d0 = date.fromisoformat(date_from)
         d1 = date.fromisoformat(date_to)
 
-        # 1. ESPN API — iterate all days in the range for this competition
+        # 1. ESPN API — single range request for this competition
         try:
             espn_slug = {v: k for k, v in _ESPN_LEAGUES.items()}.get(competition)
             if espn_slug:
-                espn_fixtures: List[Dict[str, Any]] = []
-                current = d0
-                while current <= d1:
-                    try:
-                        espn_fixtures.extend(
-                            _fetch_espn_league_day(
-                                espn_slug, competition,
-                                current.isoformat(), d0, d1,
-                                self._session, self.timeout,
-                            )
-                        )
-                    except Exception:
-                        pass
-                    current += timedelta(days=1)
+                espn_fixtures = _fetch_espn_league_range(
+                    espn_slug, competition, date_from, date_to, d0, d1,
+                    self._session, self.timeout,
+                )
                 if espn_fixtures:
                     logger.info(f"ESPN [{competition}]: {len(espn_fixtures)} fixtures")
                     return espn_fixtures
